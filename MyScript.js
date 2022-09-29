@@ -21,72 +21,82 @@ function getPlayerSelection () {
     return PChoice;
 }
 
-const PlayerChoice = getPlayerSelection();
-const ComputerChoice = getComputerChoice();
-
-
 
 function playround() {
-    console.log(`The player chose ${PlayerChoice}`);
-    let Pwin = false;
-    let Cwin = false;
-    let Tie = false;
     
+    const PlayerChoice = getPlayerSelection();
+    const ComputerChoice = getComputerChoice();
+    
+    console.log(`The player chose ${PlayerChoice}`);
+
+    let Winner = 0;
     
     if (PlayerChoice == ComputerChoice) {
         console.log("This round is a Tie");
-        Tie = true;
+        
+
     } else if (PlayerChoice == "Rock" && ComputerChoice == "Paper"){
         console.log("This round is for the Computer");
-        Cwin = true;
-        return Cwin;
+        Winner = "Computer";
+                
     } else if (PlayerChoice == "Rock" && ComputerChoice == "Scissors"){
         console.log("This round is for the Player");
-        Pwin = true;
-        return Pwin;
+        Winner = "Player";
+        
     } else if (PlayerChoice == "Paper" && ComputerChoice == "Rock"){
         console.log("This round is for the Player");
-        Pwin = true;
-        return Pwin;
+        Winner = "Player";
+        
     } else if (PlayerChoice == "Paper" && ComputerChoice == "Scissors"){
         console.log("This round is for the Computer");
-        Cwin = true;
-        return Cwin;
+        Winner = "Computer";
+        
     } else if (PlayerChoice == "Scissors" && ComputerChoice == "Rock"){
         console.log("This round is for the Computer");
-        Cwin = true;
-        return Cwin;
+        Winner = "Computer";
+        
     } else if (PlayerChoice == "Scissors" && ComputerChoice == "Paper"){
         console.log("This round is for the Player");
-        Pwin = true;
-        return Pwin;
-    } 
-
-    return Pwin;
-    return Cwin;
-    return Tie;
-
+        Winner = "Player";
+        
+    }
+    return Winner
 }
 
 
 
 function game(){
+
     let CP = 0;
     let CC = 0;
-    let CT = 0;
 
     for (let i=0; i<5; i++){
-        playround();
-        if (Cwin == true){
-            CC = CC++;
-        }else if (Pwin == true) {
-            CP = CP++;
-        } else {
-            CT = CT++;
+        const Win = playround();
+        
+        
+        if (Win == "Player") {
+            CP++;
+
+        }else if (Win == "Computer") {
+            CC++;
         }
+        
     }
+    
+    if (CP>CC)  {
+        console.log("The Winner is the Player");
+    } else if (CP<CC) {
+        console.log("The Winner is the Computer");
+    } else {
+        console.log("It's a Tie");
+    }
+
+    console.log(`The count is this one: The computer won ${CC} times, the player ${CP}`);
 }
+
 game();
+
+
 
 function capitalize(input) {
     input = input.toLowerCase();
